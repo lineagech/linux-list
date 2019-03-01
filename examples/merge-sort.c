@@ -1,9 +1,11 @@
+#include <getopt.h>
 #include <assert.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include "list.h"
 #include "common.h"
 
-static uint16_t values[256];
+static uint16_t *values;
 
 void list_split(struct list_head *head,
                 struct list_head *front,
@@ -82,12 +84,29 @@ void list_mergesort(struct list_head *head)
     list_merge(head, &left, &right);
 }
 
-int main(void)
+int main(int argc, char *argv[])
 {
     struct list_head head;
     struct listitem *item = NULL;
     struct listitem *is = NULL;
     size_t i;
+    int c, array_size = 256;
+
+    /* Get array size from user input */
+    while ((c = getopt(argc, argv, "s:")) != -1) {
+        switch (c) {
+        case 's':
+            array_size = atoi(optarg);
+            break;
+        default:
+            break;
+        }
+    }
+    values = malloc(array_size * sizeof(uint16_t));
+    if (values == NULL) {
+        fprintf(stderr, "malloc failed.\n");
+        exit(1);
+    }
 
     random_shuffle_array(values, (uint16_t) ARRAY_SIZE(values));
 
