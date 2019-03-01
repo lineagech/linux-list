@@ -27,3 +27,6 @@ tests/list_splice_tail_init
 .vscode/
 examples/-ggdb3
 examples/merge-sort
+examples/quick-sort
+examples/insert-sort
+examples/*.ok

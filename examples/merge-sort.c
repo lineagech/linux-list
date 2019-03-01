@@ -97,6 +97,7 @@ int main(int argc, char *argv[])
         switch (c) {
         case 's':
             array_size = atoi(optarg);
+            printf("size %u\n", array_size);
             break;
         default:
             break;
